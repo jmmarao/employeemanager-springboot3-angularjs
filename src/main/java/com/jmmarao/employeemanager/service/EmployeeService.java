@@ -28,14 +28,24 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+        Employee employeeToUpdate = employeeRepository.getReferenceById(employee.getId());
+        updateEmployeeData(employeeToUpdate, employee);
+        return employeeRepository.save(employeeToUpdate);
     }
 
     public Employee findEmployeeById(Long id) {
         return employeeRepository.findEmployeeById(id).orElseThrow(() -> new UserNotFoundException("User by id " + id + "was not found"));
     }
 
-    public void deleteEmployee(Long id) {
-        employeeRepository.deleteEmployeeById(id);
+    public void deleteEmployeeById(Long id) {
+        employeeRepository.deleteById(id);
+    }
+
+    private void updateEmployeeData(Employee employeeToUpdate, Employee employee) {
+        employeeToUpdate.setName(employee.getName());
+        employeeToUpdate.setEmail(employee.getEmail());
+        employeeToUpdate.setJobTitle(employee.getJobTitle());
+        employeeToUpdate.setPhone(employee.getPhone());
+        employeeToUpdate.setImageURL(employee.getImageURL());
     }
 }
