@@ -35,14 +35,13 @@ export class AppComponent implements OnInit {
     );
   }
 
-  public onOpenModal(employee: Employee, mode: string): void {
+  public onOpenModal(employee: Employee | undefined, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
     if (mode === 'add') {
-      //employee = null;
       button.setAttribute('data-target', '#addEmployeeModal');
     }
     if (mode === 'edit') {
