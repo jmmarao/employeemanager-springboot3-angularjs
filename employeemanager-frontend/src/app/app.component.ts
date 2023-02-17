@@ -20,8 +20,21 @@ export class AppComponent implements OnInit {
     this.getEmployees();
   }
 
-  public test(value: number): void {
-    console.log(value);
+  public searchEmployees(key: string): void {
+    console.log(key);
+    const results: Employee[] = [];
+    for (const employee of this.employees) {
+      if (employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        employee.email.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        employee.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        employee.jobTitle.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results.push(employee);
+      }
+    }
+    this.employees = results;
+    if (results.length === 0 || !key) {
+      this.getEmployees();
+    }
   }
 
   public getEmployees(): void {
